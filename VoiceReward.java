@@ -18,20 +18,14 @@ public class VoiceReward extends ListenerAdapter {
 
     @Override
     public void onGuildVoiceJoin(@NotNull GuildVoiceJoinEvent event) {
+        int vcsize = 0;
+        for (int i = 0; i < event.getChannelJoined().getMembers().size(); i++) {
+            if(!event.getChannelJoined().getMembers().get(i).getUser().isBot())
+                vcsize++;
+        }
 
-        if (event.getChannelJoined().getMembers().size() >= 2) {
-
-            if (event.getChannelJoined().getMembers().size() == 2) {
-                for (int i = 0; i < event.getChannelJoined().getMembers().size(); i++) {
-                    if (event.getChannelJoined().getMembers().get(i).getUser().isBot()) {
-                        Savefile.addKey("voice" + event.getChannelJoined().getId() + "activityBool", String.valueOf(false));
-                        return;
-                    }
-                }
-            }
-
+        if (vcsize >= 2) {
             Savefile.addKey("voice" + event.getChannelJoined().getId() + "activityBool", String.valueOf(true));
-
         } else {
             Savefile.addKey("voice" + event.getChannelJoined().getId() + "activityBool", String.valueOf(false));
         }
@@ -41,19 +35,13 @@ public class VoiceReward extends ListenerAdapter {
 
     @Override
     public void onGuildVoiceLeave(@NotNull GuildVoiceLeaveEvent event) {
-        if (event.getChannelLeft().getMembers().size() >= 2) {
-
-            if (event.getChannelLeft().getMembers().size() == 2) {
-                for (int i = 0; i < event.getChannelLeft().getMembers().size(); i++) {
-                    if (event.getChannelLeft().getMembers().get(i).getUser().isBot()) {
-                        Savefile.addKey("voice" + event.getChannelLeft().getId() + "activityBool", String.valueOf(false));
-                        return;
-                    }
-                }
-            }
-
+        int vcsize = 0;
+        for (int i = 0; i < event.getChannelLeft().getMembers().size(); i++) {
+            if(!event.getChannelLeft().getMembers().get(i).getUser().isBot())
+                vcsize++;
+        }
+        if (vcsize >= 2) {
             Savefile.addKey("voice" + event.getChannelLeft().getId() + "activityBool", String.valueOf(true));
-
         } else {
             Savefile.addKey("voice" + event.getChannelLeft().getId() + "activityBool", String.valueOf(false));
         }
@@ -63,40 +51,30 @@ public class VoiceReward extends ListenerAdapter {
 
     @Override
     public void onGuildVoiceMove(@NotNull GuildVoiceMoveEvent event) {
-        if (event.getChannelJoined().getMembers().size() >= 2) {
+        int vcsize = 0;
+        for (int i = 0; i < event.getChannelJoined().getMembers().size(); i++) {
+            if(!event.getChannelJoined().getMembers().get(i).getUser().isBot())
+                vcsize++;
+        }
 
-            if (event.getChannelJoined().getMembers().size() == 2) {
-                for (int i = 0; i < event.getChannelJoined().getMembers().size(); i++) {
-                    if (event.getChannelJoined().getMembers().get(i).getUser().isBot()) {
-                        Savefile.addKey("voice" + event.getChannelJoined().getId() + "activityBool", String.valueOf(false));
-                        return;
-                    }
-                }
-            }
-
+        if (vcsize >= 2) {
             Savefile.addKey("voice" + event.getChannelJoined().getId() + "activityBool", String.valueOf(true));
-
         } else {
             Savefile.addKey("voice" + event.getChannelJoined().getId() + "activityBool", String.valueOf(false));
         }
         UserHandler.voiceJoin(event);
 
-        if (event.getChannelLeft().getMembers().size() >= 2) {
-
-            if (event.getChannelLeft().getMembers().size() == 2) {
-                for (int i = 0; i < event.getChannelLeft().getMembers().size(); i++) {
-                    if (event.getChannelLeft().getMembers().get(i).getUser().isBot()) {
-                        Savefile.addKey("voice" + event.getChannelLeft().getId() + "activityBool", String.valueOf(false));
-                        return;
-                    }
-                }
-            }
-
+        vcsize = 0;
+        for (int i = 0; i < event.getChannelLeft().getMembers().size(); i++) {
+            if(!event.getChannelLeft().getMembers().get(i).getUser().isBot())
+                vcsize++;
+        }
+        if (vcsize >= 2) {
             Savefile.addKey("voice" + event.getChannelLeft().getId() + "activityBool", String.valueOf(true));
-
         } else {
             Savefile.addKey("voice" + event.getChannelLeft().getId() + "activityBool", String.valueOf(false));
         }
+
         UserHandler.voiceLeave(event);
     }
 }
